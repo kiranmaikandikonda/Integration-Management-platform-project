@@ -1,36 +1,36 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
-import en from "./locales/en.json";
-import te from "./locales/te.json";
-import hi from "./locales/hi.json";
-import kn from "./locales/kn.json";
-import ta from "./locales/ta.json";
-import ml from "./locales/ml.json";
-import bn from "./locales/bn.json";
-import mr from "./locales/mr.json";
-import gu from "./locales/gu.json";
-import pa from "./locales/pa.json";
+import english from "./locales/en.json";
+import telugu from "./locales/te.json";
+import hindi from "./locales/hi.json";
+import kannada from "./locales/kn.json";
+import tamil from "./locales/ta.json";
+import malayalam from "./locales/ml.json";
+import bengali from "./locales/bn.json";
+import marathi from "./locales/mr.json";
+import gujarati from "./locales/gu.json";
+import punjabi from "./locales/pa.json";
 
 const savedLanguage =
-  localStorage.getItem("preferredLanguage") || "en";
+  localStorage.getItem("preferredLanguage") || "english";
 
 i18n.use(initReactI18next).init({
   resources: {
-    en: { translation: en },
-    te: { translation: te },
-    hi: { translation: hi },
-    kn: { translation: kn },
-    ta: { translation: ta },
-    ml: { translation: ml },
-    bn: { translation: bn },
-    mr: { translation: mr },
-    gu: { translation: gu },
-    pa: { translation: pa }
+    english: { translation: english },
+    telugu: { translation: telugu },
+    hindi: { translation: hindi },
+    kannada: { translation: kannada },
+    tamil: { translation: tamil },
+    malayalaml: { translation: malayalam },
+    bengali: { translation: bengali },
+    marathi: { translation: marathi },
+    gujarati: { translation: gujarati },
+    punjabi: { translation: punjabi }
   },
 
   lng: savedLanguage,
-  fallbackLng: "en",
+  fallbackLng: "english",
 
   interpolation: {
     escapeValue: false

@@ -1,0 +1,58 @@
+.restaurants-page {
+    padding: 25px;
+}
+
+.restaurant-search {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.restaurant-search input {
+    flex: 1;
+    padding: 13px;
+    border: 1px solid #dce3ef;
+    border-radius: 9px;
+}
+
+.restaurant-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.restaurant-card {
+    background: white;
+    border: 1px solid #e5eaf3;
+    border-radius: 13px;
+    overflow: hidden;
+    transition: .2s;
+}
+
+.restaurant-card:hover {
+    transform: translateY(-4px);
+}
+
+.restaurant-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+
+.restaurant-card-content {
+    padding: 15px;
+}
+
+.restaurant-card h3 {
+    color: #17233f;
+}
+
+.restaurant-rating {
+    color: #e6a000;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+@media(max-width: 900px) {
+    .restaurant-grid { grid-template-columns: repeat(2, 1fr); }
+}

@@ -16,10 +16,32 @@ const userSchema = new mongoose.Schema(
             trim: true
         },
 
+        phoneNumber: {
+            type: String,
+            default: "",
+            trim: true
+        },
+
+        profilePicture: {
+            type: String,
+            default: ""
+        },
+
+        dateOfBirth: {
+            type: Date,
+            default: null
+        },
+
+        gender: {
+            type: String,
+            enum: ["Male", "Female", "Other", ""],
+            default: ""
+        },
+
         preferredLanguage: {
             type: String,
-            enum: ["en", "te", "kn", "hi"],
-            default: "en"
+            enum: ["English", "Telugu", "Hindi", "Kannada", "Tamil", "Malayalam", "Bengali", "Marathi", "Gujarati", "Punjabi"],
+            default: "English"
         },
 
         emailVerified: {

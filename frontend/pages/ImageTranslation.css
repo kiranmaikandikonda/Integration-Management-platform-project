@@ -1,0 +1,64 @@
+.image-translation-page {
+    padding: 25px;
+}
+
+.translation-container {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid #e5eaf3;
+}
+
+.translation-container h1 {
+    color: #17233f;
+    margin-bottom: 20px;
+}
+
+.translation-upload {
+    border: 2px dashed #a9bddf;
+    border-radius: 12px;
+    padding: 35px;
+    text-align: center;
+    background: #f8faff;
+    margin-bottom: 20px;
+}
+
+.translation-upload input {
+    max-width: 100%;
+    margin-top: 15px;
+}
+
+.translation-controls {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.translation-controls select {
+    padding: 12px;
+    border: 1px solid #dce3ef;
+    border-radius: 8px;
+}
+
+.translation-controls button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.translation-result {
+    background: #f3f6fc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.translation-result img {
+    max-width: 100%;
+    max-height: 350px;
+    object-fit: contain;
+}

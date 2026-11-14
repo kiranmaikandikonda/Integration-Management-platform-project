@@ -1,0 +1,35 @@
+.voice-assistant {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(20,40,80,0.06);
+    text-align: center;
+}
+
+.voice-assistant h2 {
+    color: #17233f;
+    margin-bottom: 15px;
+}
+
+.voice-assistant button {
+    width: 75px;
+    height: 75px;
+    border: none;
+    border-radius: 50%;
+    background: #2563eb;
+    color: white;
+    font-size: 28px;
+    margin: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.voice-assistant button:hover {
+    background: #1749bd;
+    transform: scale(1.06);
+}
+
+.voice-assistant p {
+    color: #8290a8;
+    font-size: 13px;
+}

@@ -1,0 +1,61 @@
+.transport-page {
+    padding: 25px;
+}
+
+.transport-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin: 22px 0;
+}
+
+.transport-card {
+    background: white;
+    padding: 22px;
+    border: 1px solid #e5eaf3;
+    border-radius: 13px;
+    text-align: center;
+    transition: .2s;
+}
+
+.transport-card:hover {
+    border-color: #2563eb;
+    transform: translateY(-4px);
+}
+
+.transport-card h3 {
+    color: #17233f;
+    margin: 12px 0;
+}
+
+.transport-card p {
+    color: #8290a8;
+    font-size: 13px;
+}
+
+.transport-card a {
+    display: inline-block;
+    margin-top: 12px;
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.transport-search {
+    display: flex;
+    gap: 10px;
+    background: white;
+    padding: 20px;
+    border-radius: 13px;
+}
+
+.transport-search input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #dce3ef;
+    border-radius: 8px;
+}
+
+@media(max-width: 900px) {
+    .transport-grid { grid-template-columns: repeat(2, 1fr); }
+}

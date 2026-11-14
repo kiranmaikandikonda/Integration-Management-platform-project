@@ -4,6 +4,21 @@ import { generateOTP, hashOTP } from "../utils/generateOTP.js";
 import sendOTPEmail from "../services/emailService.js";
 import jwt from "jsonwebtoken";
 
+// Supported languages
+const validLanguages = [
+    "English",
+    "Telugu",
+    "Hindi",
+    "Kannada",
+    "Tamil",
+    "Malayalam",
+    "Bengali",
+    "Marathi",
+    "Gujarati",
+    "Punjabi"
+];
+
+// Generate JWT token
 const createToken = (user) => {
     return jwt.sign(
         { id: user._id },
@@ -12,6 +27,7 @@ const createToken = (user) => {
     );
 };
 
+// Create and send OTP
 const createAndSendOTP = async (email, purpose) => {
     const otp = generateOTP();
 
@@ -37,14 +53,12 @@ export const register = async (req, res, next) => {
     try {
         const { name, email, preferredLanguage = "en" } = req.body;
 
-        if (!name || !email) {
+        if (!name?.trim() || !email?.trim()) {
             return res.status(400).json({
                 success: false,
                 message: "Name and email are required"
             });
         }
-
-        const validLanguages = ["en", "te", "kn", "hi"];
 
         if (!validLanguages.includes(preferredLanguage)) {
             return res.status(400).json({
@@ -62,7 +76,7 @@ export const register = async (req, res, next) => {
         if (existingUser?.emailVerified) {
             return res.status(409).json({
                 success: false,
-                message: "Email is already registered. Please login."
+                message: "Email already registered. Please login."
             });
         }
 
@@ -84,6 +98,7 @@ export const register = async (req, res, next) => {
             success: true,
             message: "Registration started. Check your email for OTP."
         });
+
     } catch (error) {
         next(error);
     }
@@ -94,7 +109,7 @@ export const sendLoginOTP = async (req, res, next) => {
     try {
         const { email } = req.body;
 
-        if (!email) {
+        if (!email?.trim()) {
             return res.status(400).json({
                 success: false,
                 message: "Email is required"
@@ -119,8 +134,9 @@ export const sendLoginOTP = async (req, res, next) => {
 
         res.json({
             success: true,
-            message: "Login OTP sent to your email"
+            message: "Login OTP sent successfully."
         });
+
     } catch (error) {
         next(error);
     }
@@ -155,7 +171,7 @@ export const verifyOTP = async (req, res, next) => {
         if (!otpRecord || otpRecord.expiresAt <= new Date()) {
             return res.status(400).json({
                 success: false,
-                message: "OTP expired or not found"
+                message: "OTP expired or not found. Request a new OTP."
             });
         }
 
@@ -200,16 +216,22 @@ export const verifyOTP = async (req, res, next) => {
 
         res.json({
             success: true,
-            message: "Login successful",
+            message: "Verification successful",
             token,
             user: {
                 id: user._id,
                 name: user.name,
                 email: user.email,
+                phoneNumber: user.phoneNumber,
+                profilePicture: user.profilePicture,
+                dateOfBirth: user.dateOfBirth,
+                gender: user.gender,
                 preferredLanguage: user.preferredLanguage,
+                emailVerified: user.emailVerified,
                 role: user.role
             }
         });
+
     } catch (error) {
         next(error);
     }
@@ -223,12 +245,112 @@ export const getProfile = async (req, res) => {
     });
 };
 
-// UPDATE LANGUAGE
+// UPDATE COMPLETE PROFILE
+export const updateProfile = async (req, res, next) => {
+    try {
+        const { name, phoneNumber, dateOfBirth, gender } = req.body;
+
+        const user = req.user;
+
+        if (name !== undefined) {
+            if (!name.trim()) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Full name is required"
+                });
+            }
+
+            user.name = name.trim();
+        }
+
+        if (phoneNumber !== undefined) {
+            const cleanedPhone = phoneNumber.trim();
+
+            if (
+                cleanedPhone &&
+                !/^\+?[0-9\s-]{7,20}$/.test(cleanedPhone)
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Please enter a valid phone number"
+                });
+            }
+
+            user.phoneNumber = cleanedPhone;
+        }
+
+        if (gender !== undefined) {
+            const validGenders = ["", "Male", "Female", "Other"];
+
+            if (!validGenders.includes(gender)) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid gender"
+                });
+            }
+
+            user.gender = gender;
+        }
+
+        if (dateOfBirth !== undefined) {
+            if (dateOfBirth === "") {
+                user.dateOfBirth = null;
+            } else {
+                const parsedDate = new Date(dateOfBirth);
+
+                if (Number.isNaN(parsedDate.getTime())) {
+                    return res.status(400).json({
+                        success: false,
+                        message: "Invalid date of birth"
+                    });
+                }
+
+                if (parsedDate > new Date()) {
+                    return res.status(400).json({
+                        success: false,
+                        message: "Date of birth cannot be in the future"
+                    });
+                }
+
+                user.dateOfBirth = parsedDate;
+            }
+        }
+
+        // Profile picture upload
+        if (req.file) {
+            user.profilePicture = `/uploads/profile/${req.file.filename}`;
+        }
+
+        await user.save();
+
+        res.json({
+            success: true,
+            message: "Profile updated successfully",
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                phoneNumber: user.phoneNumber,
+                profilePicture: user.profilePicture,
+                dateOfBirth: user.dateOfBirth,
+                gender: user.gender,
+                preferredLanguage: user.preferredLanguage,
+                emailVerified: user.emailVerified,
+                role: user.role
+            }
+        });
+
+    } catch (error) {
+        next(error);
+    }
+};
+
+// UPDATE PREFERRED LANGUAGE
 export const updateLanguage = async (req, res, next) => {
     try {
         const { preferredLanguage } = req.body;
 
-        if (!["en", "te", "kn", "hi"].includes(preferredLanguage)) {
+        if (!validLanguages.includes(preferredLanguage)) {
             return res.status(400).json({
                 success: false,
                 message: "Unsupported language"
@@ -236,13 +358,15 @@ export const updateLanguage = async (req, res, next) => {
         }
 
         req.user.preferredLanguage = preferredLanguage;
+
         await req.user.save();
 
         res.json({
             success: true,
-            message: "Language updated",
+            message: "Language updated successfully",
             preferredLanguage
         });
+
     } catch (error) {
         next(error);
     }

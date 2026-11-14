@@ -1,0 +1,43 @@
+.voice-page {
+    padding: 25px;
+}
+
+.voice-page-container {
+    min-height: 450px;
+    background: white;
+    border: 1px solid #e5eaf3;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 30px;
+}
+
+.voice-page-container h1 {
+    color: #17233f;
+    margin-bottom: 15px;
+}
+
+.voice-microphone {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: #2563eb;
+    color: white;
+    border: none;
+    font-size: 38px;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(37,99,235,.25);
+    margin: 25px;
+}
+
+.voice-microphone:hover {
+    background: #1749bd;
+    transform: scale(1.05);
+}
+
+.voice-page-container p {
+    color: #8290a8;
+}

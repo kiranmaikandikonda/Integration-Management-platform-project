@@ -1,0 +1,51 @@
+.settings-page {
+    padding: 25px;
+}
+
+.settings-container {
+    max-width: 850px;
+    background: white;
+    padding: 25px;
+    border: 1px solid #e5eaf3;
+    border-radius: 14px;
+}
+
+.settings-section {
+    padding: 20px 0;
+    border-bottom: 1px solid #e5eaf3;
+}
+
+.settings-section h3 {
+    color: #17233f;
+    margin-bottom: 15px;
+}
+
+.settings-section p {
+    color: #8290a8;
+    font-size: 13px;
+}
+
+.settings-section select {
+    width: 100%;
+    max-width: 350px;
+    padding: 12px;
+    border: 1px solid #dce3ef;
+    border-radius: 8px;
+}
+
+.settings-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.settings-save-button {
+    margin-top: 22px;
+    padding: 12px 25px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
